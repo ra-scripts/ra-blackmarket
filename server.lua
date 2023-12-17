@@ -143,18 +143,6 @@ RegisterNetEvent('ra-blackmarket:server:buyitems', function(shopid, item, totalR
 	end
 end)
 
-local function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
 RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopid, item, price)
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
@@ -165,6 +153,13 @@ RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopi
 	if hasItem and totalRequest <= hasItem.amount then
 	local cashtoadd = totalRequest * price
 	local webhookData = deepCopy(embedData)
+		if Config.BlackmarketZones[shopid].SellWithMarkedbills then
+				if Config.BlackmarketZones[shopid].FixedMarkedBills then
+					-- to be done
+				else
+					
+				end
+		else		
 		webhookData[1]['title'] = Config.Selling
 		webhookData[1]['color'] = Config.SellingColor
 		webhookData[1]['description'] = Lang:t("info.message3", {playername = playername, cid = cid, itemname = item, itemamount = totalRequest, prices = tonumber(cashtoadd), shopid = shopid})
@@ -173,6 +168,7 @@ RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopi
 		Player.Functions.AddMoney('cash', cashtoadd)
 		PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
 		Notify(Config.Selling, Lang:t("info.sold",{theItem = item, Cash = cashtoadd}), 'success', src)
+		end
 	else
 		Notify(Config.Selling, Lang:t("info.errorAmount"), 'error', src)
 	end
