@@ -146,22 +146,38 @@ end)
 RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopid, item, price)
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
-	local typePayment = Config.BlackmarketZones[shopid].Payment
 	local playername = Player.PlayerData.charinfo.firstname
 	local cid = Player.PlayerData.citizenid
+	local CurrentBMarket = Config.BlackmarketZones[shopid]
+	local typePayment = CurrentBMarket.Payment
+	local SellWithBills = CurrentBMarket.SellWithMarkedbills
 	local hasItem = Player.Functions.GetItemByName(item)
 	if hasItem and totalRequest <= hasItem.amount then
 	local cashtoadd = totalRequest * price
 	local webhookData = deepCopy(embedData)
-		if Config.BlackmarketZones[shopid].SellWithMarkedbills then
-				if Config.BlackmarketZones[shopid].FixedMarkedBills then
-					-- to be done
-				else
-					
-				end
+	webhookData[1]['title'] = Config.Selling
+	webhookData[1]['color'] = Config.SellingColor
+		if SellWithBills then
+			webhookData[1]['description'] = Lang:t("info.message3", {playername = playername, cid = cid, itemname = item, itemamount = totalRequest, prices = tonumber(cashtoadd), shopid = shopid})
+			if CurrentBMarket.FixedMarkedBills then
+				Player.Functions.RemoveItem(item, totalRequest)
+				TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "remove")
+				Player.Functions.AddItem(CurrentBMarket.MarkedBillItemName, cashtoadd)
+				TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[CurrentBMarket.MarkedBillItemName], "add")
+				Notify(Config.Selling, Lang:t("info.sell4",{yItem = item, Amount = totalRequest, xMoney = cashtoadd}), 'success', src)
+				PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
+			else
+				Player.Functions.RemoveItem(item, totalRequest)
+				TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "remove")
+				local info = {
+					worth = cashtoadd
+				}
+				Player.Functions.AddItem(CurrentBMarket.MarkedBillItemName, 1, false, info)
+        		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[CurrentBMarket.MarkedBillItemName], 'add')
+				Notify(Config.Selling, Lang:t("info.sell3",{yItem = item, Amount = totalRequest, xMoney = cashtoadd}), 'success', src)
+				PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
+			end
 		else		
-		webhookData[1]['title'] = Config.Selling
-		webhookData[1]['color'] = Config.SellingColor
 		webhookData[1]['description'] = Lang:t("info.message3", {playername = playername, cid = cid, itemname = item, itemamount = totalRequest, prices = tonumber(cashtoadd), shopid = shopid})
 		Player.Functions.RemoveItem(item, totalRequest)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "remove")
@@ -172,7 +188,6 @@ RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopi
 	else
 		Notify(Config.Selling, Lang:t("info.errorAmount"), 'error', src)
 	end
-
 end)
 
 AddEventHandler('onResourceStart', function(resource)
