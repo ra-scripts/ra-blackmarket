@@ -36,6 +36,7 @@ Config.BlackmarketZones = {
 		Payment = "markedbills", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly
 		MarkedBillItemName = "markedbills", -- the markedbills item name in qb-core/shared/items.lua
 		FixedMarkedBills = false, -- in case your markedbills has fixed amount like 1$ for example if lockpick cost 100 then you need to have 100 markedbills, if false will use markedbills info worth
+		SellWithMarkedbills = false, -- get paid with markedbills when selling items
 		UseTime = true, -- True will use in-game Time , False always open
 		TimeOpen = 23, -- if use time is Flase no need to edit this if its TRUE so this is time open for blackmarket
 		TimeClose = 24,  --- time for close blackmarket 24 mean 00:00 midnight [ formatted 1 = AM , 2 = AM .... 13 = PM, 14 = PM ... 23 = PM , 24 = 00:00 ]
@@ -79,6 +80,7 @@ Config.BlackmarketZones = {
 		Payment = "money", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly
 		MarkedBillItemName = "markedbills", -- the markedbills item name in qb-core/shared/items.lua
 		FixedMarkedBills = false, -- in case your markedbills has fixed amount like 1$ for example if lockpick cost 100 then you need to have 100 markedbills
+		SellWithMarkedbills = false, -- get paid with markedbills when selling items
 		UseTime = false, -- True will use in-game Time , False always open
 		TimeOpen = 23, -- if use time is Flase no need to edit this if its TRUE so this is time open for blackmarket
 		TimeClose = 24,  --- time for close blackmarket 24 mean 00:00 midnight [ formatted 1 = AM , 2 = AM .... 13 = PM, 14 = PM ... 23 = PM , 24 = 00:00 ]
