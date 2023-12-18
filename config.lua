@@ -4,7 +4,7 @@ Config.UpdateCheck = true -- enable version check
 Config.target = true -- enable target eye
 Config.TargetResource = "qb-target" -- support qb-target / ox_target only 
 Config.img = "qb-inventory/html/images/" -- Set this to your inventory images
-Config.Notify = "t" -- qb / okokNotify / t / infinity / rr / mythic_notify
+Config.Notify = "qb" -- qb / okokNotify / t / infinity / rr / mythic_notify
 
 --// discord weboohks START\\----
 Config.WebHook = "" -- your discord webhook here 
@@ -33,7 +33,7 @@ Config.BlackmarketZones = {
 		label = "Blackmarket one",
 		DrawLabelOverHead = false, -- show 3dtext over ped head 
 		Distance3dText = 10, -- max distance to show 3dtext
-		Payment = "markedbills", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly
+		Payment = "markedbills", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly , this for buying from blackmarket
 		MarkedBillItemName = "markedbills", -- the markedbills item name in qb-core/shared/items.lua
 		FixedMarkedBills = false, -- in case your markedbills has fixed amount like 1$ for example if lockpick cost 100 then you need to have 100 markedbills, if false will use markedbills info worth
 		SellWithMarkedbills = false, -- get paid with markedbills when selling items
@@ -77,7 +77,7 @@ Config.BlackmarketZones = {
 		label = "Blackmarket Two",
 		DrawLabelOverHead = false, -- show 3dtext over ped head 
 		Distance3dText = 10, -- max distance to show 3dtext
-		Payment = "money", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly
+		Payment = "money", -- Choose between money / markedbills , if put money will check if it will take from cash or bank automaticly , this for buying from blackmarket
 		MarkedBillItemName = "markedbills", -- the markedbills item name in qb-core/shared/items.lua
 		FixedMarkedBills = false, -- in case your markedbills has fixed amount like 1$ for example if lockpick cost 100 then you need to have 100 markedbills
 		SellWithMarkedbills = false, -- get paid with markedbills when selling items
