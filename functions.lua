@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 function dump(o)
    if type(o) == 'table' then
       local s = '{ '
