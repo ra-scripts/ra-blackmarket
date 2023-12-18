@@ -1,6 +1,19 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local webHook = Config.WebHook
 
+embedData = {
+    {
+        ['title'] = "",
+        ['color'] = "",
+        ['footer'] = {['text'] = os.date('%c'),},
+        ['description'] = "",
+        ['author'] = {
+            ['name'] = Config.BotName,
+            ['icon_url'] = Config.BotLogo,
+        },
+    }
+}
+
 -- callback to check all items of the Player
 QBCore.Functions.CreateCallback('ra-blackmarket:serve:CheckInventory', function(source, cb)
 	local src = source

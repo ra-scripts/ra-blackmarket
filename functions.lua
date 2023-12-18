@@ -46,19 +46,6 @@ function deepCopy(orig)
     return copy
 end
 
-embedData = {
-    {
-        ['title'] = "",
-        ['color'] = "",
-        ['footer'] = {['text'] = os.date('%c'),},
-        ['description'] = "",
-        ['author'] = {
-            ['name'] = Config.BotName,
-            ['icon_url'] = Config.BotLogo,
-        },
-    }
-}
-
 function CloseBlackmarketMenu()
     exports['qb-menu']:closeMenu()
     exports['qb-core']:HideText()
