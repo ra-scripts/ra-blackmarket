@@ -1,52 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local webHook = Config.WebHook
 
-local function CheckItems()
-    local Items = QBCore.Shared.Items
-    for k, zone in pairs(Config.BlackmarketZones) do
-        for _, itemData in pairs(zone.ItemstoBuy) do
-            local itemName = itemData.name
-            if not Items[itemName] then
-				print(string.format("^5Debug^7: ^3Item^7 ^3'%s'^7: ^5In Config.BlackmarketZones["..k.."].ItemstoBuy ^7^2does not exist in QBCore.Shared.Items!^7 ", itemName))
-            end
-        end
-        for _, itemData in pairs(zone.ItemstoSell) do
-            local itemName = itemData.name
-
-            if not Items[itemName] then
-				print(string.format("^5Debug^7: ^3Item^7 ^3'%s'^7: ^5In Config.BlackmarketZones["..k.."].ItemstoSell ^7^2does not exist in QBCore.Shared.Items!^7 ", itemName))
-            end
-        end
-    end
-end
-
-local function deepCopy(orig)
-    local copy
-    if type(orig) == 'table' then
-        copy = {}
-        for k, v in next, orig, nil do
-            copy[deepCopy(k)] = deepCopy(v)
-        end
-        setmetatable(copy, deepCopy(getmetatable(orig)))
-    else
-        copy = orig
-    end
-    return copy
-end
-
-local embedData = {
-    {
-        ['title'] = "",
-        ['color'] = "",
-        ['footer'] = {['text'] = os.date('%c'),},
-        ['description'] = "",
-        ['author'] = {
-            ['name'] = Config.BotName,
-            ['icon_url'] = Config.BotLogo,
-        },
-    }
-}
-
 -- callback to check all items of the Player
 QBCore.Functions.CreateCallback('ra-blackmarket:serve:CheckInventory', function(source, cb)
 	local src = source
