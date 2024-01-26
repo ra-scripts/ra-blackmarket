@@ -14,12 +14,16 @@ embedData = {
     }
 }
 
--- callback to check all items of the Player
+-- callback to check all items of the Player   
 QBCore.Functions.CreateCallback('ra-blackmarket:serve:CheckInventory', function(source, cb)
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local items = Player.PlayerData.items
-	cb(items)
+		if Player then
+			cb(items)
+		else
+			cb({})
+		end
 end)
 
 local function getWorthMarkedBillSlot(itemName, amountToTake)
@@ -144,13 +148,13 @@ RegisterNetEvent('ra-blackmarket:server:sellitems', function(totalRequest, shopi
 				Notify(Config.Selling, Lang:t("info.sell3",{yItem = item, Amount = totalRequest, xMoney = cashtoadd}), 'success', src)
 				PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
 			end
-		else		
-		webhookData[1]['description'] = Lang:t("info.message3", {playername = playername, cid = cid, itemname = item, itemamount = totalRequest, prices = tonumber(cashtoadd), shopid = shopid})
-		Player.Functions.RemoveItem(item, totalRequest)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "remove")
-		Player.Functions.AddMoney('cash', cashtoadd)
-		PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
-		Notify(Config.Selling, Lang:t("info.sold",{theItem = item, Cash = cashtoadd}), 'success', src)
+		else	-- give cash to player and remove items
+			webhookData[1]['description'] = Lang:t("info.message3", {playername = playername, cid = cid, itemname = item, itemamount = totalRequest, prices = tonumber(cashtoadd), shopid = shopid})
+			Player.Functions.RemoveItem(item, totalRequest)
+			TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], "remove")
+			Player.Functions.AddMoney('cash', cashtoadd)
+			PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = Config.BotName, embeds = webhookData}), { ['Content-Type'] = 'application/json' })
+			Notify(Config.Selling, Lang:t("info.sold",{theItem = item, Cash = cashtoadd}), 'success', src)
 		end
 	else
 		Notify(Config.Selling, Lang:t("info.errorAmount"), 'error', src)
