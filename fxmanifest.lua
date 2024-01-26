@@ -3,7 +3,7 @@ game "gta5"
 lua54 'yes'
 name "ra-blackmarket"
 author "radhwane07"
-version "1.2.2"
+version "1.2.4"
 description "Ra-Blackmarket script by Discord for free support : radhwane07"
 
 shared_scripts {
