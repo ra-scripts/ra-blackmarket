@@ -13,6 +13,14 @@ function dump(o)
    end
 end
 
+function TypeChacker(value)
+    if type(value) == "number" then
+        return true
+    else
+        return false
+    end
+end
+
 function CheckItems()
     local Items = QBCore.Shared.Items
     for k, zone in pairs(Config.BlackmarketZones) do
