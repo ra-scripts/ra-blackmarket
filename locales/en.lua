@@ -1,10 +1,10 @@
 local Translations = {
 	-- general info
-		-- client
+	-- client
 		["closed"] = "Closed!",
 		["bclosed"] = "Blackmarket closed now check back later",
-		-- client menu	
-        ["headermenu"] = '%{label}', -- dont change this 
+	-- client menu	
+		["headermenu"] = '%{label}', -- dont change this 
 		["buyMenu"] = 'Buy items',
 		["buyTxt"] = 'Buy Items and weapons',
 		["sellMenu"] = 'Sell items',
@@ -20,7 +20,7 @@ local Translations = {
 		["howmuchsell"] = 'Quantity you want to sell',
 		["headermenusell"] = 'Sell to: %{Name}',
 		["HasNotItem"] = 'You dont Own this item',
-		--server
+	--server
 		["buywithmbills"] = 'You Bought : %{yItem} Amount : %{Amount} and paid $%{xMoney} MarkedBills',
 		["buywithcash"] = 'You Bought %{xItem} Amount : %{Amount} from the blackmarket and paid with Cash : $%{Money}',
 		["buywithbank"] = 'You Bought %{xItem} Amount : %{Amount} from the blackmarket and paid with bank: $%{Money}',
@@ -31,19 +31,8 @@ local Translations = {
 		["NotEnoughtMoney"] = 'you dont have enought money',
 		["sold"] = 'You Sold %{Item} to blackmarket for : $%{Cash}',
 		["errorAmount"] = 'you dont have this amount',
-
 	-- discord logs
 		["disbuylog"] = 'Player : **%{playername}** \n CitizenID : **%{cid}** \n purchased **%{itemname}** \n Amount **%{amount}** \n and paid : **%{prices}** \n paid with **%{types}** \n from the blackmarket number **%{shopid}**', -- this is for discord log,
 		["disselllog"] = 'Player : **%{playername}** \n CitizenID : **%{cid}** \n just sell **%{itemname}** \n Amount **%{itemamount}** \n and got paid : **%{prices}** \n from the blackmarket number **%{shopid}**', -- this is for discord log
 }
 return Translations
-
-		--
-		--["nobills"] = 'I only accept markedbills!!',
-		--["Cheat"] = 'Player : **%{playername}** CitizenID : **%{cid}** Trying to cheat in ra-blackmarket',
-		--
-		--["name"] = 'Name',
-		--["buytxt2"] = "Name : %{item} - Price : %{price} - Max : %{Max}",
-		--["selltxt"] = "Name : %{item} - Price : %{price}",
-		--
-
